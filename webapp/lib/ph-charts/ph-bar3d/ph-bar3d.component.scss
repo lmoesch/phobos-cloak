@@ -1,0 +1,23 @@
+
+svg polygon {
+}
+
+:host ::ng-deep svg {
+    width: 500px;
+    height: 320px;
+}
+
+:host ::ng-deep svg polygon {
+    stroke-linejoin: round;
+
+    // stroke: #000;
+    // stroke-width: 1;   
+}
+
+:host ::ng-deep .frame {
+    fill: url(#grad1);
+}
+
+:host ::ng-deep .frame2 {
+    fill: rgb(255,255,255,0.7);
+}

@@ -1,0 +1,84 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 132px;
+}
+
+div.ticks {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    justify-content: space-between;
+
+    top: -1px;
+    bottom: -1px;
+    left: -12px;
+
+    div.tick {
+        div.line {
+            position: relative;
+            width: 48px;
+            height: 0px;
+            border-bottom: 1px solid #ccc;
+            div.value {
+                position: absolute;
+                top: -14px;
+                left: -48px;
+            }
+        }
+    }
+}
+
+
+div.label {
+    color:#ccc;
+    font-size: 12px;
+    font-family: 'Fira Code';
+    padding: 6px 12px 0 12px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+div.value {
+    color:#ccc;
+    font-size: 12px;
+    font-family: 'Fira Code';
+    padding: 6px 12px 0 12px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+div.input {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    padding: 6px;
+
+    div.slider {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        margin-left: -7px;
+
+        div.track {
+            position: relative;
+            flex-grow: 1;
+    
+            width: 24px;
+            border: 1px solid #ccc; 
+
+            div.handle {
+                position: absolute;
+                background-color: #f8a403;
+                width: 42px;
+                height: 12px;
+                // top: -7px;
+                left: -9px;
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+:host {
+    display:flex;
+    height: 100%;
+    justify-content: center;
+}
+
+div.content {
+    margin:auto;
+    display: flex;
+    font-family: 'Fira Code';
+    font-size: 48px;
+    color: #ccc;
+    text-align: center;
+}

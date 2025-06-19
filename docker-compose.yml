@@ -1,0 +1,12 @@
+services:
+  server:
+    image: prim/phobos-cloak:1.0.0
+    build:
+      context: "."
+    restart: always
+    container_name: "phobos-cloak"
+    ports:
+      - "3200:3100"
+    # devices:
+    #   - "/dev/snd:/dev/snd"
+
