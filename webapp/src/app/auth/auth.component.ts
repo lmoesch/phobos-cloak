@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { PhElementsModule } from '../../../lib/phobos-elements/ph-elements.module';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
