@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ph-table',
-  templateUrl: './ph-table.component.html',
-  styleUrls: ['./ph-table.component.scss']
+    selector: 'ph-table',
+    templateUrl: './ph-table.component.html',
+    styleUrls: ['./ph-table.component.scss'],
+    standalone: false
 })
 export class PhTableComponent implements OnInit {
 

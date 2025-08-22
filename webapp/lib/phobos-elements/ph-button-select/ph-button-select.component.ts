@@ -8,9 +8,10 @@ export interface PhButtonListOption {
 }
 
 @Component({
-  selector: 'ph-button-select',
-  templateUrl: './ph-button-select.component.html',
-  styleUrls: ['./ph-button-select.component.scss']
+    selector: 'ph-button-select',
+    templateUrl: './ph-button-select.component.html',
+    styleUrls: ['./ph-button-select.component.scss'],
+    standalone: false
 })
 export class PhButtonSelectComponent implements OnInit, AfterContentInit, AfterViewInit {
 

@@ -5,13 +5,12 @@ import { PhElementsModule } from '../../../lib/phobos-elements/ph-elements.modul
 import {} from '@angular/common/http';
 
 @Component({
-  selector: 'app-auth',
-  standalone: true,
-  imports: [
-    PhElementsModule,
-  ],
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+    selector: 'app-auth',
+    imports: [
+        PhElementsModule,
+    ],
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
 

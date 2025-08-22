@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'ph-slider',
-  templateUrl: './ph-slider.component.html',
-  styleUrls: ['./ph-slider.component.scss']
+    selector: 'ph-slider',
+    templateUrl: './ph-slider.component.html',
+    styleUrls: ['./ph-slider.component.scss'],
+    standalone: false
 })
 export class PhSliderComponent implements OnChanges, AfterViewInit  {
     public active = 0;

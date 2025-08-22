@@ -4,14 +4,13 @@ import { PhElementsModule } from '../../../../lib/phobos-elements/ph-elements.mo
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
 
 @Component({
-  selector: 'ph-cloak-phase-power',
-  standalone: true,
-  imports: [
-    CommonModule,
-    PhElementsModule
-  ],
-  templateUrl: './phase-power.component.html',
-  styleUrl: './phase-power.component.scss'
+    selector: 'ph-cloak-phase-power',
+    imports: [
+        CommonModule,
+        PhElementsModule
+    ],
+    templateUrl: './phase-power.component.html',
+    styleUrl: './phase-power.component.scss'
 })
 export class PhasePowerComponent {
 

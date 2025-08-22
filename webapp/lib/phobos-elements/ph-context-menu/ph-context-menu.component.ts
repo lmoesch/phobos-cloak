@@ -1,9 +1,10 @@
 import { Component, ElementRef, HostBinding, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ph-context-menu',
-  templateUrl: './ph-context-menu.component.html',
-  styleUrls: ['./ph-context-menu.component.scss']
+    selector: 'ph-context-menu',
+    templateUrl: './ph-context-menu.component.html',
+    styleUrls: ['./ph-context-menu.component.scss'],
+    standalone: false
 })
 export class PhContextMenuComponent implements OnInit {
 

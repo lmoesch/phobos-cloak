@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
 
 @Component({
-  selector: 'ph-cloak-cluster-matrix',
-  standalone: true,
-  imports: [
-    CommonModule,
-    PhElementsModule
-  ],
-  templateUrl: './cluster-matrix.component.html',
-  styleUrl: './cluster-matrix.component.scss'
+    selector: 'ph-cloak-cluster-matrix',
+    imports: [
+        CommonModule,
+        PhElementsModule
+    ],
+    templateUrl: './cluster-matrix.component.html',
+    styleUrl: './cluster-matrix.component.scss'
 })
 export class ClusterMatrixComponent {
 

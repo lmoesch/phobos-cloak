@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'ph-slider-vertical',
-  templateUrl: './ph-slider-vertical.component.html',
-  styleUrls: ['./ph-slider-vertical.component.scss']
+    selector: 'ph-slider-vertical',
+    templateUrl: './ph-slider-vertical.component.html',
+    styleUrls: ['./ph-slider-vertical.component.scss'],
+    standalone: false
 })
 export class PhSliderVerticalComponent implements OnChanges, AfterViewInit  {
     public math = Math;

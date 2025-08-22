@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
     selector: "ph-drop-list-item",
     templateUrl: "./ph-drop-list-item.component.html",
     styleUrls: ["./ph-drop-list-item.component.scss"],
+    standalone: false
 })
 export class PhDropListItemComponent implements OnInit {
 

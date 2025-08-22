@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'ph-drop-list',
     templateUrl: './ph-drop-list.component.html',
-    styleUrls: ['./ph-drop-list.component.scss']
+    styleUrls: ['./ph-drop-list.component.scss'],
+    standalone: false
 })
 export class PhDropListComponent implements OnInit, AfterContentInit {
 

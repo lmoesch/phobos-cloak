@@ -11,16 +11,15 @@ import { PowerTotalComponent } from '../dashboard-components/power-total/power-t
 
 @Component({
     selector: 'app-dashboard',
-    standalone: true,
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
     imports: [
-      CommonModule,
-      PhElementsModule,
-      PhChartsModule,
-      ClusterMatrixComponent,
-      PhasePowerComponent,
-      PowerTotalComponent
+        CommonModule,
+        PhElementsModule,
+        PhChartsModule,
+        ClusterMatrixComponent,
+        PhasePowerComponent,
+        PowerTotalComponent
     ]
 })
 export class DashboardComponent {
