@@ -1,15 +1,16 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PhElementsModule } from '../../../../lib/phobos-elements/ph-elements.module';
+import { PhSliderVertical} from '@phobos/elements';
+
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
 
 @Component({
-    selector: 'ph-cloak-phase-power',
-    imports: [
-    PhElementsModule
-],
-    templateUrl: './phase-power.component.html',
-    styleUrl: './phase-power.component.scss'
+  selector: 'ph-cloak-phase-power',
+  imports: [
+    PhSliderVertical
+  ],
+  templateUrl: './phase-power.component.html',
+  styleUrl: './phase-power.component.scss'
 })
 export class PhasePowerComponent {
 

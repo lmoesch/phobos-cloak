@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PhElementsModule } from "../../../../lib/phobos-elements/ph-elements.module";
+import { PhSliderVertical } from '@phobos/elements';
 
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
 
 @Component({
-    selector: 'ph-cloak-cluster-matrix',
-    imports: [
-    PhElementsModule
-],
-    templateUrl: './cluster-matrix.component.html',
-    styleUrl: './cluster-matrix.component.scss'
+  selector: 'ph-cloak-cluster-matrix',
+  imports: [
+    PhSliderVertical
+  ],
+  templateUrl: './cluster-matrix.component.html',
+  styleUrl: './cluster-matrix.component.scss'
 })
 export class ClusterMatrixComponent {
 
