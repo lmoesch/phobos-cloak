@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhElementsModule } from '../../../../lib/phobos-elements/ph-elements.module';
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
@@ -6,9 +6,8 @@ import { PhobosBackendService } from '../../backend/phobos.backend.service';
 @Component({
     selector: 'ph-cloak-phase-power',
     imports: [
-        CommonModule,
-        PhElementsModule
-    ],
+    PhElementsModule
+],
     templateUrl: './phase-power.component.html',
     styleUrl: './phase-power.component.scss'
 })

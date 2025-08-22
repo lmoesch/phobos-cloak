@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhElementsModule } from "../../../../lib/phobos-elements/ph-elements.module";
-import { CommonModule } from '@angular/common';
+
 import { PhobosBackendService } from '../../backend/phobos.backend.service';
 
 @Component({
     selector: 'ph-cloak-cluster-matrix',
     imports: [
-        CommonModule,
-        PhElementsModule
-    ],
+    PhElementsModule
+],
     templateUrl: './cluster-matrix.component.html',
     styleUrl: './cluster-matrix.component.scss'
 })

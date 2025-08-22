@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { PhElementsModule } from '../../../lib/phobos-elements/ph-elements.module';
 import { PhChartsModule } from "../../../lib/ph-charts/ph-charts.module";
-import { CommonModule } from '@angular/common';
+
 import { ClusterMatrixComponent } from '../dashboard-components/cluster-matrix/cluster-matrix.component';
 import { PhasePowerComponent } from '../dashboard-components/phase-power/phase-power.component';
 import { PhobosBackendService } from '../backend/phobos.backend.service';
@@ -14,13 +14,12 @@ import { PowerTotalComponent } from '../dashboard-components/power-total/power-t
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
     imports: [
-        CommonModule,
-        PhElementsModule,
-        PhChartsModule,
-        ClusterMatrixComponent,
-        PhasePowerComponent,
-        PowerTotalComponent
-    ]
+    PhElementsModule,
+    PhChartsModule,
+    ClusterMatrixComponent,
+    PhasePowerComponent,
+    PowerTotalComponent
+]
 })
 export class DashboardComponent {
   public view: string = "CLOAK";
