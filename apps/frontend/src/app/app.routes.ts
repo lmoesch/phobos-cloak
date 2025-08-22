@@ -1,15 +1,17 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from './auth/auth.component';
-import { AuthGuardService as AuthGuard } from './auth/services/auth-guard.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClusterControlComponent } from './cluster-control/cluster-control.component';
+import { PowerControlComponent } from './power-control/power-control.component';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'auth'},
-    { path: 'auth', component: AuthComponent },
     {
-      path: 'dashboard',
-      component: DashboardComponent,
-      canActivate: [AuthGuard],
+      path: 'power',
+      component: PowerControlComponent,
+      canActivate: [],
+    },
+    {
+      path: 'cluster',
+      component: ClusterControlComponent,
+      canActivate: [],
       data: {
         roles: ['admin', 'tec']
       }

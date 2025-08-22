@@ -2,12 +2,12 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { PhElementsModule } from '../../../lib/phobos-elements/ph-elements.module';
 import { PhChartsModule } from "../../../lib/ph-charts/ph-charts.module";
 
-import { ClusterMatrixComponent } from '../dashboard-components/cluster-matrix/cluster-matrix.component';
-import { PhasePowerComponent } from '../dashboard-components/phase-power/phase-power.component';
+import { ClusterMatrixComponent } from '../infrastructure/ui/cluster-matrix/cluster-matrix.component';
+import { PhasePowerComponent } from '../infrastructure/ui/phase-power/phase-power.component';
 import { PhobosBackendService } from '../backend/phobos.backend.service';
 import { re } from 'mathjs';
 import { AuthService } from '../auth/services/auth.service';
-import { PowerTotalComponent } from '../dashboard-components/power-total/power-total.component';
+import { PowerTotalComponent } from '../infrastructure/ui/power-total/power-total.component';
 
 @Component({
     selector: 'app-dashboard',

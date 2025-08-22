@@ -2,7 +2,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhSliderVertical} from '@phobos/elements';
 
-import { PhobosBackendService } from '../../backend/phobos.backend.service';
+import { PhobosBackendService } from '../../../backend/phobos.backend.service';
 
 @Component({
   selector: 'ph-cloak-phase-power',

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PhElementsModule } from '../../lib/phobos-elements/ph-elements.module';
 import { PhobosBackendService } from './backend/phobos.backend.service';
 
 @Component({
     selector: 'app-root',
     imports: [
-        RouterOutlet,
-        PhElementsModule
+        RouterOutlet
     ],
     providers: [PhobosBackendService],
     template: `<router-outlet />`,
