@@ -5,11 +5,13 @@
   "workspaces": [
     "apps/*",
     "libs/*",
-    "libs/phobos/*"
+    "libs/phobos/*",
+    "libs/phobos-cloak/*"
   ],
   "scripts": {
     "lerna": "lerna",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "build:protocol": "npm run build -w libs/phobos-cloak/protocol"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "20.1.3",

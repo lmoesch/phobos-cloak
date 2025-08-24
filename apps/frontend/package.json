@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "20.1.3",
     "@angular/router": "20.1.3",
     "@phobos/elements": "^0.2.1",
+    "@phobos-cloak/protocol": "0.1.0",
     "@softarc/native-federation-node": "^2.0.10",
     "es-module-shims": "^1.5.12",
     "mathjs": "^12.4.2",

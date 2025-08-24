@@ -1,0 +1,16 @@
+{
+  "name": "@phobos-cloak/protocol",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run proto:generate && tsc",
+    "proto:generate": "protoc -I=./proto/cloak --ts_proto_opt=messages=true --ts_proto_opt=exportCommonSymbols=false --ts_proto_out=./src ./proto/cloak/phobos.cloak.proto"
+  },
+  "devDependencies": {
+    "ts-proto": "^1.125.0",
+    "ts-protoc-gen": "^0.15.0",
+    "typescript": "^5.7.3"
+  },
+  "private": true
+}

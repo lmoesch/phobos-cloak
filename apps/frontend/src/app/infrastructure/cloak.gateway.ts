@@ -1,33 +1,39 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { Injectable, signal, WritableSignal } from "@angular/core";
+import { CloakMessage, Request, Response } from "@phobos-cloak/protocol"
+
 import { v4 as uuidv4 } from 'uuid';
 import { Subject } from "rxjs";
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { PhobosMessage, Response, Request } from "../../../proto/phobos";
 
-const PHOBOS_CLOAK_SERVER_HOSTNAME = window?.__env?.phobosCloakServerHostname != null ? `${window.__env.phobosCloakServerHostname}` : window.location.hostname;
-const PHOBOS_CLOAK_SERVER_PORT = window?.__env?.phobosCloakServerPort != null ? window.__env.phobosCloakServerPort : window.location.port;
+const CLOAK_SERVER_HOSTNAME = window?.__env?.CLOAK_SERVER_HOSTNAME || window.location.hostname;
+const CLOAK_SERVER_PORT = window?.__env?.CLOAK_SERVER_PORT || 3006;
 
 const REST_API_URL = `http://${window.location.host}`;
-const WS_URL = `ws://${PHOBOS_CLOAK_SERVER_HOSTNAME}:${PHOBOS_CLOAK_SERVER_PORT}`;
+const WS_URL = `ws://${CLOAK_SERVER_HOSTNAME}:${CLOAK_SERVER_PORT}`;
 
-@Injectable()
-export class PhobosBackendService {
+@Injectable(
+    { providedIn: 'root' }
+)
+export class CloakGateway {
     public onRequest: Subject<{id: string, request: Request}> = new Subject<{id: string, request: Request}>();
-    public onMessage: Subject<PhobosMessage> = new Subject<PhobosMessage>();
+    public onMessage: Subject<CloakMessage> = new Subject<CloakMessage>();
     public onOpen: Subject<void> = new Subject<void>();
     public onClose: Subject<void> = new Subject<void>();
 
-    public isConnected: boolean = false;
+    public isConnected: WritableSignal<boolean> = signal(false);
 
     private requests: Map<string, (value: Response) => void> = new Map<string, (value: Response) => void>();
     private ws!: WebSocketSubject<any>;
 
-    constructor(private http: HttpClient) {}
+    constructor() {}
 
-    public async connect() {
-        this.ws = webSocket({url: WS_URL, openObserver: { next: () => { this.isConnected = true; this.onOpen.next()} }});
-        console.log('Connecting to', WS_URL);
+    public async connect(jwt: string) {
+        this.ws = webSocket({url: `${WS_URL}?token=${jwt}`, openObserver: { 
+            next: () => { 
+                this.isConnected.set(true); 
+                this.onOpen.next();
+        }}});
+
         this.ws.subscribe({
             next: this.handleMessage.bind(this),
             error: this.handleClose.bind(this),
@@ -37,27 +43,28 @@ export class PhobosBackendService {
 
     public request(req: Request): Promise<Response> {
         return new Promise((resolve, reject) => {
-            const msg: PhobosMessage = {
+            const msg: CloakMessage = {
                 id: uuidv4(),
                 request: req
             }
             this.requests.set(msg.id, resolve.bind(this));
             setTimeout(this.rejectOnTimeout.bind(this, msg.id, reject.bind(this, `${req} timed out`)), 5000);
-            this.ws.next({event: 'msg', data: JSON.stringify(PhobosMessage.toJSON(msg))});
+            this.ws.next({event: 'msg', data: JSON.stringify(CloakMessage.toJSON(msg))});
         });
 
     }
 
     public respond(id: string, res: Response) {
-        const msg: PhobosMessage = {
+        const msg: CloakMessage = {
             id: id,
             response: res
         }
-        this.ws.next({event: 'msg', data: JSON.stringify(PhobosMessage.toJSON(msg))});
+        this.ws.next({event: 'msg', data: JSON.stringify(CloakMessage.toJSON(msg))});
     }
 
     private handleMessage(buffer: {event: 'msg', data: string}) {
-        const msg = PhobosMessage.fromJSON(JSON.parse(buffer.data));
+        const msg = CloakMessage.fromJSON(JSON.parse(buffer.data));
+        
         if(msg.request) {
             this.onRequest.next({id: msg.id, request: msg.request});
         }
@@ -73,8 +80,8 @@ export class PhobosBackendService {
     }
 
     private handleClose() {
-        this.isConnected = false;
-        setTimeout(this.connect.bind(this), 5000);
+        this.isConnected.set(false);
+        // setTimeout(this.connect.bind(this), 5000);
         this.onClose.next();
     }
 

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+message GetPhasePower {
+    message Request {}
+
+    message Response {
+        repeated int32 power = 1;
+    }
+}
+
+message SetPhasePower {
+    message Request {
+        repeated int32 power = 1;
+    }
+
+    message Response {}
+}
+
+
+message GetTargetPhasePower {
+    message Request {}
+
+    message Response {
+        repeated float power = 1;
+    }
+}
+
+ message SetTargetPhasePower {
+    message Request {
+        repeated float power = 1;
+    }
+
+    message Response {}
+}
