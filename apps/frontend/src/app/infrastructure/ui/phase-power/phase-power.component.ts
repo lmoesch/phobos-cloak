@@ -2,7 +2,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhSliderVertical} from '@phobos/elements';
 
-import { PhobosBackendService } from '../../../backend/phobos.backend.service';
 
 @Component({
   selector: 'ph-cloak-phase-power',
@@ -17,20 +16,9 @@ export class PhasePowerComponent {
   @Input() power = [100, 100, 100, 100, 100, 100]
   @Output() powerChange: EventEmitter<number[]> = new EventEmitter<number[]>();
 
-  constructor(private readonly phobos: PhobosBackendService) { }
+  constructor() { }
 
-  ngAfterViewInit() {
-    this.phobos.onOpen.subscribe(async () => {
-      const power = (await this.phobos.request({getPhasePower: {}})).getPhasePower?.power;
-      this.power = power!;
-    });
-
-    this.phobos.onRequest.subscribe(async (request) => {
-      if (request.request.setPhasePower) {
-        this.power = request.request.setPhasePower.power;
-      }
-    });
-  }
+  ngAfterViewInit() { }
 
   onSliderValueChange(index: number, value: number) {
     this.power[index] = value;

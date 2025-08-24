@@ -111,6 +111,7 @@ export class DashboardComponent {
 
   onPowerChange(power: number[]) {
     this.phasePower = power;
+    
     this.data = this.data.map((value, i) => {
       return value.map((currentValue, j) => {
         return this.phasePower[i] * this.mixingMatrix[j] * 150  / 100 + this.jitter[i][j];

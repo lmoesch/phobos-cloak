@@ -7,7 +7,7 @@ import { Bar3D } from './core/bar3d';
     selector: 'ph-bar-chart-3d',
     templateUrl: './ph-bar3d.component.html',
     styleUrl: './ph-bar3d.component.scss',
-    standalone: false
+    standalone: true
 })
 export class PhBar3dComponent implements AfterViewInit {
   @Input() data: any

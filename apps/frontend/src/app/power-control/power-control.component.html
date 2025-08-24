@@ -1,0 +1,7 @@
+<ph-window [title]="'CLUSTER POWER'" style="grid-row: span 2">
+  <phobos-cloak-power-total [power]="totalPower"></phobos-cloak-power-total>
+</ph-window>
+
+<ph-window [title]="'CLUSTER PHASE POWER'" style="grid-row: span 2">
+  <ph-cloak-phase-power (powerChange)="onPowerChange($event)"></ph-cloak-phase-power>
+</ph-window>
