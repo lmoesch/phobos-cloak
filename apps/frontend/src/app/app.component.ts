@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PhobosBackendService } from './backend/phobos.backend.service';
 
 declare global {
     interface Window {
@@ -16,7 +15,7 @@ declare global {
     imports: [
         RouterOutlet
     ],
-    providers: [PhobosBackendService],
+    providers: [],
     template: `<router-outlet />`,
     styles: []
 })
