@@ -9,6 +9,7 @@ import { PhBar3dComponent } from "../../../../lib/ph-charts/ph-bar3d/ph-bar3d.co
     PhBar3dComponent,
     PhWindow
   ],
+  standalone: true,
   templateUrl: "./matrix.component.html",
   styleUrls: ["./matrix.component.scss"],
 })

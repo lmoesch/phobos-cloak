@@ -1,29 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
-
 @font-face {
-    font-family: 'Elegant Icons';
-    src: url('assets/fonts/ElegantIcons/ElegantIcons.ttf')
+    font-family: 'Fira Code';
+    src: url('/fonts/FiraCode/FiraCode-Regular.ttf')
 }
 
 @font-face {
     font-family: 'Fira Code';
-    src: url('assets/fonts/FiraCode/FiraCode-Regular.ttf')
-}
-
-@font-face {
-    font-family: 'Fira Code';
-    src: url('assets/fonts/FiraCode/FiraCode-Medium.ttf');
+    src: url('/fonts/FiraCode/FiraCode-Medium.ttf');
     font-weight: 500;
 }
 
 @font-face {
     font-family: 'Fira Code';
-    src: url('assets/fonts/FiraCode/FiraCode-Light.ttf');
+    src: url('/fonts/FiraCode/FiraCode-Light.ttf');
     font-weight: 300;
 }
 
 html {
-    background-image: url( 'assets/endless-constellation.svg' );
+    background-image: url( '/assets/endless-constellation.svg' );
 }
 
 html, body {
@@ -36,4 +29,28 @@ html, body {
     bottom: 0;
 
     overflow: hidden;
+    display: flex;
+}
+
+/* width */
+::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    // box-shadow: inset 0 0 5px grey; 
+    // border-radius: 10px;
+    display: none !important;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    display: none !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    display: none !important;
 }

@@ -8,7 +8,6 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 const CLOAK_SERVER_HOSTNAME = window?.__env?.CLOAK_SERVER_HOSTNAME || window.location.hostname;
 const CLOAK_SERVER_PORT = window?.__env?.CLOAK_SERVER_PORT || 3006;
 
-const REST_API_URL = `http://${window.location.host}`;
 const WS_URL = `ws://${CLOAK_SERVER_HOSTNAME}:${CLOAK_SERVER_PORT}`;
 
 @Injectable(
@@ -51,7 +50,6 @@ export class CloakGateway {
             setTimeout(this.rejectOnTimeout.bind(this, msg.id, reject.bind(this, `${req} timed out`)), 5000);
             this.ws.next({event: 'msg', data: JSON.stringify(CloakMessage.toJSON(msg))});
         });
-
     }
 
     public respond(id: string, res: Response) {

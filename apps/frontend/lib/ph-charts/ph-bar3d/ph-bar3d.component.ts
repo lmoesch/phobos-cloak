@@ -15,7 +15,7 @@ export class PhBar3dComponent implements AfterViewInit {
   @ViewChild('chart') chart!: ElementRef<SVGElement>;
 
   ngAfterViewInit(): void {
-    // this.render(this.data);
+    this.render(this.data);
   }
 
   ngOnChanges(changes: SimpleChanges) {

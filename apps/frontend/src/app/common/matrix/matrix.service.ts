@@ -32,7 +32,7 @@ export class MatrixService {
   ];
 
   public mixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
-  public phasePower: WritableSignal<number[]> = signal([0, 0, 0, 0, 0, 0]);
+  public phasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
 
   constructor() {}
 }

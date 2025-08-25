@@ -17,7 +17,7 @@ declare global {
     ],
     providers: [],
     template: `<router-outlet />`,
-    styles: []
+    styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent {
