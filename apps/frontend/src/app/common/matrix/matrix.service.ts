@@ -4,15 +4,6 @@ import { computed, Injectable, signal, WritableSignal } from "@angular/core";
   providedIn: "root",
 })
 export class MatrixService {
-  
-  public targetData = [
-    [100, 100, 100, 100, 100, 100],
-    [100, 100, 100, 100, 100, 100],
-    [100, 100, 100, 100, 100, 100],
-    [100, 100, 100, 100, 100, 100],
-    [100, 100, 100, 100, 100, 100],
-    [100, 100, 100, 100, 100, 100],
-  ];
 
   public data = computed(() => {
     return this.phasePower().map((phase, i) =>
@@ -33,6 +24,7 @@ export class MatrixService {
 
   public mixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
   public phasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
+  public targetData: WritableSignal<number[][]> = signal(Array.from({ length: 6 }, () => Array(6).fill(100)));
 
   constructor() {}
 }
