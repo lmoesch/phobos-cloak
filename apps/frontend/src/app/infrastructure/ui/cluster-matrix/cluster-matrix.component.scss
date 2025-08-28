@@ -7,3 +7,8 @@ div.content {
     display: flex;
     flex-grow: 1;
 }
+
+ph-slider-vertical {
+    width: 50px !important;
+    overflow: hidden;
+}

@@ -12,7 +12,8 @@
     "lerna": "lerna",
     "build": "lerna run build",
     "build:protocol": "npm run build -w libs/phobos-cloak/protocol",
-    "start:frontend": "npm run start -w apps/frontend"
+    "start:frontend": "npm run start -w apps/frontend",
+    "start:backend": "npm run start -w apps/backend"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "20.1.3",
