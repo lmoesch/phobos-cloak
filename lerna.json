@@ -4,6 +4,7 @@
   "packages": [
     "apps/*",
     "libs/*",
-    "libs/phobos/*"
+    "libs/phobos/*",
+    "libs/phobos-cloak/*"
   ]
 }
