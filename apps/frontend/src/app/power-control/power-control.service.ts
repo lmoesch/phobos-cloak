@@ -1,8 +1,8 @@
-import { effect, Injectable, signal, WritableSignal } from "@angular/core";
+import { effect, Injectable } from "@angular/core";
 
 import { CloakGateway } from "../infrastructure/cloak.gateway";
-import { PowerControlRpcAdapter } from "./rpc/power-control.rpc.adapter";
 import { MatrixService } from "../common/matrix/matrix.service";
+import { MatrixRpcAdapter } from "../common/matrix/rpc/matrix.rpc.adapter";
 
 @Injectable({
   providedIn: "root"
@@ -19,7 +19,7 @@ export class PowerControlService {
   constructor(
     public readonly matrix: MatrixService,
     private readonly gateway: CloakGateway,
-    private readonly rpc: PowerControlRpcAdapter
+    private readonly rpc: MatrixRpcAdapter
   ) { }
 
   public async updatePhasePower(newPower: number[]) {

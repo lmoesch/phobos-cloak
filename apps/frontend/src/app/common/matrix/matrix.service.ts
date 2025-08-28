@@ -1,4 +1,6 @@
-import { computed, Injectable, signal, WritableSignal } from "@angular/core";
+import { computed, effect, Injectable, signal, WritableSignal } from "@angular/core";
+import { CloakGateway } from "../../infrastructure/cloak.gateway";
+import { MatrixRpcAdapter } from "./rpc/matrix.rpc.adapter";
 
 @Injectable({
   providedIn: "root",
@@ -8,6 +10,14 @@ export class MatrixService {
   public data = computed(() => {
     return this.phasePower().map((phase, i) =>
       this.mixingMatrix().map((mix, j) =>
+        phase * mix * 150 / 100 + this.jitter[i][j]
+      )
+    );
+  });
+
+  public targetData = computed(() => {
+    return this.targetPhasePower().map((phase, i) =>
+      this.targetMixingMatrix().map((mix, j) =>
         phase * mix * 150 / 100 + this.jitter[i][j]
       )
     );
@@ -24,7 +34,21 @@ export class MatrixService {
 
   public mixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
   public phasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
-  public targetData: WritableSignal<number[][]> = signal(Array.from({ length: 6 }, () => Array(6).fill(100)));
 
-  constructor() {}
+  private targetMixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
+  private targetPhasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
+
+  dataInit = effect(async () => {
+    if (this.gateway.isConnected()) {
+      this.mixingMatrix.set(await this.rpc.getClusterMixingMatrix());
+      this.phasePower.set(await this.rpc.getPhasePower());
+      this.targetMixingMatrix.set(await this.rpc.getTargetClusterMixingMatrix());
+      this.targetPhasePower.set(await this.rpc.getTargetPhasePower());
+    }
+  });
+
+  constructor(
+    private readonly rpc: MatrixRpcAdapter,
+    private readonly gateway: CloakGateway
+  ) {}
 }
