@@ -3,6 +3,8 @@ import { PhWindow } from "@phobos/elements";
 
 import { PhasePowerComponent } from "../infrastructure/ui/phase-power/phase-power.component";
 import { PowerTotalComponent } from "../infrastructure/ui/power-total/power-total.component";
+import { MatrixService } from "../common/matrix/matrix.service";
+import { MatrixRpcAdapter } from "../common/matrix/rpc/matrix.rpc.adapter";
 
 @Component({
   selector: "app-power-control",
@@ -17,9 +19,13 @@ import { PowerTotalComponent } from "../infrastructure/ui/power-total/power-tota
 export class PowerControlComponent {
   public totalPower: number = 0;
 
-  constructor() {}
+  constructor(
+    public readonly matrix: MatrixService,
+    private readonly rpc: MatrixRpcAdapter
+  ) {}
 
   onPowerChange(power: number[]) {
-    
+    this.matrix.phasePower.set(power);
+    this.rpc.setPhasePower(power);
   }
 }

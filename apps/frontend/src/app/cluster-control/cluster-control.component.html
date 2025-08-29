@@ -1,4 +1,6 @@
 <app-matrix></app-matrix>
 <ph-window [title]="'CLUSTER MIXING MATRIX'" style="flex-grow: 1; grid-row: span 2">
-    <ph-cloak-cluster-matrix [matrix]="matrix.mixingMatrix()" (matrixChange)="handleMatrixChange($event)"></ph-cloak-cluster-matrix>
+    <div style="background-color: #1e1e1e; display: flex; flex-grow: 1; margin-left: 1px">
+        <ph-cloak-cluster-matrix [matrix]="matrix.mixingMatrix()" (matrixChange)="handleMatrixChange($event)"></ph-cloak-cluster-matrix>
+    </div>
 </ph-window>

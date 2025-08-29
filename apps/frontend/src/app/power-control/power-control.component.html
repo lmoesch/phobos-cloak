@@ -4,6 +4,6 @@
 
 <ph-window [title]="'CLUSTER PHASE POWER'" style="flex-grow: 1">
   <div style="background-color: #1e1e1e; display: flex; flex-grow: 1; margin-left: 1px">
-    <ph-cloak-phase-power (powerChange)="onPowerChange($event)"></ph-cloak-phase-power>
+    <ph-cloak-phase-power [power]="matrix.phasePower()" (powerChange)="onPowerChange($event)"></ph-cloak-phase-power>
   </div>
 </ph-window>

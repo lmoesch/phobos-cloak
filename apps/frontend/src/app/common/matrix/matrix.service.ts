@@ -35,8 +35,8 @@ export class MatrixService {
   public mixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
   public phasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
 
-  private targetMixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
-  private targetPhasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
+  public targetMixingMatrix: WritableSignal<number[]> = signal([0.16, 0.16, 0.16, 0.16, 0.16, 0.16]);
+  public targetPhasePower: WritableSignal<number[]> = signal([100, 100, 100, 100, 100, 100]);
 
   dataInit = effect(async () => {
     if (this.gateway.isConnected()) {
