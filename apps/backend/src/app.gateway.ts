@@ -14,7 +14,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { Ws } from './common/interfaces/ws';
 import { PhobosMessage, Request, Response } from 'proto/phobos';
 
-@WebSocketGateway()
+@WebSocketGateway({path: '/api'})
 export class AppGateway {
   protected activeClients: Map<string, Ws> = new Map<string, Ws>();
   protected requests: Map<string, (value: Response) => void> = new Map<string, (value: Response) => void>();

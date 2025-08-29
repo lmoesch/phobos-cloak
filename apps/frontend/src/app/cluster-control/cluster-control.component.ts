@@ -3,6 +3,7 @@ import { MatrixComponent } from "../common/matrix/matrix.component";
 import { PhWindow } from "@phobos/elements";
 import { ClusterMatrixComponent } from "../infrastructure/ui/cluster-matrix/cluster-matrix.component";
 import { MatrixService } from "../common/matrix/matrix.service";
+import { MatrixRpcAdapter } from "../common/matrix/rpc/matrix.rpc.adapter";
 
 @Component({
   selector: "app-cluster-control",
@@ -16,6 +17,12 @@ import { MatrixService } from "../common/matrix/matrix.service";
 })
 export class ClusterControlComponent {
     constructor(
-      public matrix: MatrixService
+      public matrix: MatrixService,
+      private rpc: MatrixRpcAdapter
     ) {}
+
+    handleMatrixChange(event: number[]) {
+      this.matrix.mixingMatrix.set(event);
+      this.rpc.setClusterMixingMatrix(event);
+    }
 }

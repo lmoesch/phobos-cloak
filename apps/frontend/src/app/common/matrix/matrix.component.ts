@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { MatrixService } from "./matrix.service";
 import { PhWindow } from "@phobos/elements";
 import { PhBar3dComponent } from "../../../../lib/ph-charts/ph-bar3d/ph-bar3d.component";
+import { MatrixApiService } from "./api/matrix.api.service";
 
 @Component({
   selector: "app-matrix",
@@ -15,6 +16,7 @@ import { PhBar3dComponent } from "../../../../lib/ph-charts/ph-bar3d/ph-bar3d.co
 })
 export class MatrixComponent {
   constructor(
-    public readonly matrix: MatrixService
+    public readonly matrix: MatrixService,
+    private readonly api: MatrixApiService
   ) {}
 }

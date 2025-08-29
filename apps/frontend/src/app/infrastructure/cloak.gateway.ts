@@ -26,8 +26,8 @@ export class CloakGateway {
 
     constructor() {}
 
-    public async connect(jwt: string) {
-        this.ws = webSocket({url: `${WS_URL}?token=${jwt}`, openObserver: { 
+    public async connect() {
+        this.ws = webSocket({url: `${WS_URL}/api`, openObserver: { 
             next: () => { 
                 this.isConnected.set(true); 
                 this.onOpen.next();
