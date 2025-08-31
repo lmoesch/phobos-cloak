@@ -5,11 +5,13 @@ module.exports = withNativeFederation({
   name: 'phobos-cloak',
 
   exposes: {
+    './Routes': './src/app/app.routes.ts',
     './Component': './src/app/app.component.ts',
   },
 
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+    '@phobos/core': { requiredVersion: 'auto', import: '@phobos/core', singleton: true },
   },
 
   skip: [
