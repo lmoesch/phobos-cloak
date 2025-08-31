@@ -1,42 +1,36 @@
-FROM node:22.4.1 AS webapp
+FROM node:24.1.0-slim AS deps
+RUN apt update && apt install python3 protobuf-compiler build-essential gettext -y
 
-RUN apt update && apt install protobuf-compiler -y 
+WORKDIR /opt/phobos-cloak
 
-WORKDIR /opt/phobos-cloak/webapp
+COPY package*.json ./
+COPY lerna*.json ./
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/frontend/package.json ./apps/frontend/
+COPY libs ./libs
 
-# Install webapp source dependancies
-COPY ./webapp/*.json ./
 RUN npm install
 
-# Build webapp
-COPY ./webapp/lib ./lib
-COPY ./webapp/src ./src
-COPY ./protocol ../protocol
+# Build frontend
+FROM deps AS frontend
 
-RUN npm run proto:generate
-RUN npm run build
+COPY apps/frontend ./apps/frontend
+RUN npx lerna run build --scope @phobos-cloak/frontend --include-dependencies
 
-FROM node:22.4.1 AS server
-ENV TZ="Europe/Berlin"
+# Build backend
+FROM deps AS backend
 
-RUN apt update && apt install protobuf-compiler alsa-utils libasound2-dev -y 
+COPY apps/backend ./apps/backend
+RUN npx lerna run build --scope @phobos-cloak/backend --include-dependencies
 
-EXPOSE 3100
-WORKDIR /opt/phobos-cloak/server
+# Final image
+FROM backend
 
-# Install server source dependancies
-COPY ./server/*.json ./
-RUN npm install
-
-# Build server
-COPY ./server/src ./src
-COPY ./server/lib ./lib
-COPY ./protocol ../protocol
-
-RUN npm run proto:generate
-
-# Get webapp artifact
-COPY --from=webapp /opt/phobos-cloak/webapp/dist/phobos-cloak/browser ./dist/public
+WORKDIR /opt/phobos-cloak
+COPY --from=frontend /opt/phobos-cloak/apps/frontend/dist/phobos-cloak/browser ./apps/backend/public
 
 # Run startscript
-CMD npm run start
+COPY ./docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+
+CMD ["./docker-entrypoint.sh"]
