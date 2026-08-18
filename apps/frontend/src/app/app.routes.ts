@@ -6,14 +6,19 @@ export const routes: Routes = [
     {
       path: 'power',
       component: PowerControlComponent,
-      canActivate: [],
+      data: {
+        roles: ['admin', 'tec'],
+        view: 'CLOAK',
+        tab: 'POWER'
+      },
     },
     {
       path: 'cluster',
       component: ClusterControlComponent,
-      canActivate: [],
       data: {
-        roles: ['admin', 'tec']
+        roles: ['admin', 'sci'],
+        view: 'CLOAK',
+        tab: 'CLUSTER'
       }
     }
 ];

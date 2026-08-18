@@ -4,3 +4,12 @@
 [submodule "libs/phobos/core"]
 	path = libs/phobos/core
 	url = https://github.com/PRIM-EDV/phobos-core
+[submodule "libs/phobos/common"]
+	path = libs/phobos/common
+	url = https://github.com/PRIM-EDV/phobos-common
+[submodule "libs/phobos/infrastructure"]
+	path = libs/phobos/infrastructure
+	url = https://github.com/PRIM-EDV/phobos-infrastructure
+[submodule "libs/lsx/protocol"]
+	path = libs/lsx/protocol
+	url = https://github.com/PRIM-EDV/lsx-protocol
