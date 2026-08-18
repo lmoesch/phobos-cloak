@@ -1,0 +1,34 @@
+{
+    "name": "@phobos-cloak/cloak-devcontainer",
+    "dockerComposeFile": "./docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/git-lfs:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+            "version": "latest"
+        },
+    },
+    "postCreateCommand": "/workspace/.devcontainer/setup-git.sh",
+     "customizations": {
+        "vscode": {
+            "extensions": [
+                "angular.ng-template",
+                "ms-kubernetes-tools.vscode-kubernetes-tools",
+                "ms-vscode.vscode-json",
+                "ms-vscode.vscode-typescript-next",
+                "ms-azuretools.vscode-docker"
+            ],
+            "settings": {
+                "git.enableSmartCommit": true,
+                "git.autofetch": true,
+                "git.confirmSync": false,
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "extensions.autoUpdate": false,
+                "extensions.autoCheckUpdates": false
+            }
+        }
+    }
+}

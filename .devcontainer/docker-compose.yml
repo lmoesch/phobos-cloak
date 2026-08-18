@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    ports:
+      - "4006:4006"
+      - "3006:3006"
+    volumes:
+      - ..:/workspace:cached
+
+      # Docker Daemon socket
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/root/.docker/config.json:ro
+
+      # Local node_modules
+      - node_modules:/workspace/node_modules
+
+      # Kubernetes config forwarding
+      - ~/.kube/config:/root/.kube/config:ro
+
+      # Basic git configuration forwarding
+      - ~/.gitconfig:/tmp/host-gitconfig:ro
+      - ~/.git-credentials:/home/node/.git-credentials:ro
+      - ~/.ssh:/home/node/.ssh:ro
+    environment:
+      - DOCKER_CONTEXT=default
+volumes:
+  node_modules:
