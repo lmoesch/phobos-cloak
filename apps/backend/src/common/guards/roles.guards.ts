@@ -1,5 +1,6 @@
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { AuthService } from '@phobos/infrastructure';
+import * as jose from 'jose';
 import { Ws } from '../interfaces/ws';
 import { ROLES_METADATA } from '../constants';
 
@@ -8,7 +9,7 @@ import { ROLES_METADATA } from '../constants';
  */
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(private authService: AuthService) {}
 
   /**
    * Determines whether the client is authorized to access the resource.
@@ -17,21 +18,21 @@ export class RolesGuard implements CanActivate {
    * @throws UnauthorizedException if the client is not authorized.
    */
   public async canActivate(context: ExecutionContext): Promise<boolean> {
-    const token = context.switchToWs().getClient<Ws>().token; 
+    const token = context.switchToWs().getClient<Ws>().token;
     const roles = Reflect.getMetadata(ROLES_METADATA, context.getHandler()) as string[];
 
     if (!roles) {
       return true;
     }
 
-    if (!token) {
+    if (!token || !(await this.authService.validateToken(token))) {
       return false;
-    } 
+    }
 
     try {
-      const payload = await this.jwtService.decode(token);
+      const { scope } = jose.decodeJwt(token) as { scope?: string };
 
-      if (!roles.includes(payload.role)) {
+      if (!roles.includes(scope || '')) {
         return false;
       }
 

@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { Subject } from "rxjs";
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-const CLOAK_SERVER_HOSTNAME = window?.__env?.CLOAK_SERVER_HOSTNAME || window.location.hostname;
-const CLOAK_SERVER_PORT = window?.__env?.CLOAK_SERVER_PORT || 3006;
+const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss' : 'ws';
+const CLOAK_BASE_PATH = window?.__env?.CLOAK_BASE_PATH || '/app/cloak';
 
-const WS_URL = `ws://${CLOAK_SERVER_HOSTNAME}:${CLOAK_SERVER_PORT}`;
+const WS_URL = `${WS_PROTOCOL}://${window.location.host}${CLOAK_BASE_PATH}`;
 
 @Injectable(
     { providedIn: 'root' }

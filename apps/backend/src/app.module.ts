@@ -3,11 +3,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './api/auth/auth.module';
+import { AuthModule, WinstonLoggerModule } from '@phobos/infrastructure';
 import { AppGateway } from './app.gateway';
-import { LoggingModule } from './core/logging/logging.module';
 import { ApiModule } from './api/api.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { RolesGuard } from './common/guards/roles.guards';
 
 
 @Global()
@@ -19,10 +19,10 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     }),
     EventEmitterModule.forRoot(),
     ApiModule,
-    LoggingModule,
+    WinstonLoggerModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AppGateway],
+  providers: [AppService, AppGateway, RolesGuard],
   exports: [AppGateway]
 })
 export class AppModule {}

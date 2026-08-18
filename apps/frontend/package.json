@@ -1,6 +1,6 @@
 {
   "name": "@phobos-cloak/frontend",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-architects/native-federation": "^20.1.6",
+    "@angular-architects/native-federation": "^21.2.3",
     "@angular/animations": "21.1.5",
     "@angular/common": "21.1.5",
     "@angular/compiler": "21.1.5",
@@ -19,8 +19,8 @@
     "@angular/platform-browser": "21.1.5",
     "@angular/platform-browser-dynamic": "21.1.5",
     "@angular/router": "21.1.5",
-    "@phobos/core": "^0.1.0",
-    "@phobos/elements": "^0.2.1",
+    "@phobos/core": "^1.2.0",
+    "@phobos/elements": "^0.3.2",
     "@phobos-cloak/protocol": "0.1.0",
     "@softarc/native-federation-node": "^2.0.10",
     "es-module-shims": "^1.5.12",
@@ -38,6 +38,6 @@
     "cpx2": "^7.0.1",
     "ts-proto": "^2.0.3",
     "ts-protoc-gen": "^0.15.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.0"
   }
 }

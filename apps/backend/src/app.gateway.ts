@@ -1,34 +1,41 @@
 import * as WebSocket from 'ws';
-import {
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-} from '@nestjs/websockets';
+import { HttpAdapterHost } from '@nestjs/core';
+import { OnModuleInit } from '@nestjs/common';
+import { OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { AuthService, WinstonLogger } from '@phobos/infrastructure';
 import { v4 as uuidv4 } from 'uuid';
-
-import { LoggingService } from 'src/core/logging/logging.service';
+import { IncomingMessage } from 'http';
 import { Subject } from 'rxjs';
-import { UseGuards } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from './common/guards/auth.guard';
+import Stream from 'stream';
+
 import { Ws } from './common/interfaces/ws';
 import { PhobosMessage, Request, Response } from 'proto/phobos';
 
 @WebSocketGateway({path: '/api'})
-export class AppGateway {
+export class AppGateway implements OnGatewayConnection, OnModuleInit {
   protected activeClients: Map<string, Ws> = new Map<string, Ws>();
   protected requests: Map<string, (value: Response) => void> = new Map<string, (value: Response) => void>();
 
   public onMessage: Subject<PhobosMessage> = new Subject<PhobosMessage>();
   public onRequest: Subject<{client: Ws, msgId: string, request: Request}> = new Subject<{client: Ws, msgId: string, request: Request}>();
 
-  constructor(private readonly log: LoggingService, private readonly jwtService: JwtService) {
-
-  }
-
   @WebSocketServer() server: WebSocket.Server;
 
-  // @UseGuards(AuthGuard)
+  constructor(
+    private readonly auth: AuthService,
+    private readonly logger: WinstonLogger,
+    private readonly http: HttpAdapterHost
+  ) {
+    this.logger.setContext('AppGateway');
+  }
+
+  onModuleInit() {
+    const server = this.http.httpAdapter.getHttpServer();
+
+    server.removeAllListeners('upgrade');
+    server.on('upgrade', this.handleUpgrade.bind(this));
+  }
+
   @SubscribeMessage('msg')
   public handleMessage(client: Ws, payload: string): void {
     const msg = PhobosMessage.fromJSON(JSON.parse(payload));
@@ -46,15 +53,24 @@ export class AppGateway {
     this.onMessage.next(msg);
   }
 
-  @UseGuards(AuthGuard)
-  @SubscribeMessage('token')
-  public handleToken(client: Ws, payload: string): void {
-    client.token = payload;
-  }
-
   handleDisconnect(client: Ws) {
     this.activeClients.delete(client.id);
-    this.log.info(`Client disconnected: ${client.id}`);
+    this.logger.log(`Client disconnected: ${client.id}`);
+  }
+
+  async handleUpgrade(request: IncomingMessage, socket: Stream.Duplex, head: Buffer) {
+    const urlParams = new URLSearchParams(request.url?.split('?')[1]);
+    const token = urlParams.get('token');
+
+    if (!token || !(await this.auth.validateToken(token))) {
+      this.logger.warn(`Unauthorized connection attempt from ${request.socket.remoteAddress || 'unknown'}`);
+      socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+      socket.destroy();
+    } else {
+      this.server.handleUpgrade(request, socket, head, (client: WebSocket, request: IncomingMessage) => {
+        this.server.emit('connection', client, request);
+      });
+    }
   }
 
   handleConnection(client: Ws, ...args: any[]) {
@@ -62,9 +78,9 @@ export class AppGateway {
 
     client.token = urlParams.get('token');
     client.id = uuidv4();
-    
+
     this.activeClients.set(client.id, client);
-    this.log.info(`Client connected: ${client.id}`);
+    this.logger.log(`Client connected: ${client.id}`);
   }
 
   public async request(clientId: string, req: Request): Promise<Response> {
@@ -129,7 +145,11 @@ export class AppGateway {
   }
 
   protected sendToClient(client: Ws, msg: PhobosMessage) {
-    const buffer = {event: 'msg', data: JSON.stringify(PhobosMessage.toJSON(msg))};
-    client.send(JSON.stringify(buffer))
+    try {
+      const buffer = {event: 'msg', data: JSON.stringify(PhobosMessage.toJSON(msg))};
+      client.send(JSON.stringify(buffer))
+    } catch (error) {
+      this.logger.error(`Failed to send message to client: ${error}`);
+    }
   }
 }

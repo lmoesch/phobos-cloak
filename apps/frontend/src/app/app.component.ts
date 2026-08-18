@@ -6,8 +6,7 @@ import { CloakGateway } from "./infrastructure/cloak.gateway";
 declare global {
   interface Window {
     __env: {
-      CLOAK_SERVER_HOSTNAME: string;
-      CLOAK_SERVER_PORT: number;
+      CLOAK_BASE_PATH: string;
     };
   }
 }

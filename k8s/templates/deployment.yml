@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phobos-cloak-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phobos-cloak
+  template:
+    metadata:
+      labels:
+        app: phobos-cloak
+    spec:
+      containers:
+      - name: phobos-cloak
+        image: "prim/phobos-cloak:{{ .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4006

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phobos-cloak-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-idle-timeout: "86400"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: {{ printf "%s(/|$)(.*)" .Values.mfe.path | quote }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: phobos-cloak-service
+                port:
+                  number: 80
